@@ -5,12 +5,12 @@
 }
 :root {
     --background: #F8F5F0;
-    --primary: #08501b;
-    --accent: #C46A2D;
+    --primary: #09521c;
+    --accent: #803c0f;
     --secondary: #E6D5B8;
     --text: #2B2B2B;
     --white: #FFFFFF;
-    --green: #93b14e;
+    --green: #155a12;
 }
 html{
     font-size: 18px;
@@ -78,18 +78,17 @@ header nav a {
     
 }
 .hero {
-    min-height: 90vh;
-
+    min-height: 92.4vh;
     display: flex;
     align-items: flex-start;
-    margin-top: 5px;
+    margin-top: 3px;
 }
 
 
 .hero h2 {
     font-size: 90px;
 
-    color: var(--green);
+    color: var(--primary);
 
     margin-bottom: 0px;
 
@@ -98,12 +97,13 @@ header nav a {
 
 }
 .hero p {
-    font-size: 30px;
-    color: var(--green );
+    font-size: 34px;
+    color: var(--white); 
     margin-bottom: 20px;
     text-align: left;
     margin-top: 0px;
     line-height: 1.5;
+
     
 
 }
@@ -114,7 +114,7 @@ header nav a {
    align-items: flex-start;
    gap: 20px;
    margin-top: 40px;
-   padding-bottom: 300px;
+   
    width: 650px; 
 
 }
@@ -126,3 +126,98 @@ section.hero  {
 
 }
 
+.hero-buttons {
+    display: flex;
+    gap: 150px;
+    margin-top: 50px;
+    
+}
+
+.btn {
+    display: inline-block;
+
+    font-size: 1rem;
+
+    padding: 14px 34px;
+
+    border-radius: 10px;
+
+    
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: 0.3s ease;
+
+    cursor: pointer;
+}
+.btn-primary {
+    background-color: var(--accent);
+    color: var(--white);
+}
+.category {
+     display: flex ;
+     
+     justify-content: center;
+    background: var(--accent);
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    margin-top: 10px;
+}
+.card-btn{
+    background-color: var(--accent);
+    color: var(--white);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 1rem;
+    text-decoration: none;
+    transition: 0.3s ease;
+     display: block;
+
+    width: fit-content;
+
+   margin-top: auto;
+    align-self: center;
+    
+}
+
+.meal-cards {
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin-top: 15px;
+}
+.meal-card {
+    background-color: var(--white);
+    border: 1px solid var(--green);
+    border-radius: 120px;
+     display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 20px;
+
+    
+}
+.meal-card img {
+    width: 100%;
+    height: 300px;
+
+    object-fit: cover;
+
+    display: block;
+    border-radius: 100px;
+}
+.meal-info{
+    display: flex;
+    flex-direction: column;
+
+    flex: 1;
+}
+
+
+.meal-info h3{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}

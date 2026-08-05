@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,103 +8,174 @@
 
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<header>
-    <div class="container">
-        <div class="logo">
-           
-            <img class="logo-img" src="images/logo/logo.png" alt="Savory House Logo">
-             <h1>Savory House</h1>
+
+    <header>
+        <div class="container">
+
+            <div class="logo">
+                <img class="logo-img" src="images/logo/logo.png" alt="Savory House Logo">
+                <h1>Savory House</h1>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="pages/menu.html">Menu</a></li>
+                    <li><a href="#about-us">About</a></li>
+                    <li><a href="#contact-us">Contact</a></li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <section id="home" class="hero">
+        <div class="container">
+
+            <div class="hero-content">
+
+                <h2>Welcome to Savory House</h2>
+
+                <p>
+                    Experience handcrafted meals prepared with fresh ingredients,
+                    bold flavors, and exceptional hospitality.
+                </p>
+
+                <div class="hero-buttons">
+                    <a href="pages/menu.html" class="btn btn-primary">Explore Menu</a>
+                    <a href="pages/contact.html" class="btn btn-primary">Book a Table</a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="featured-meals">
+        <div class="container">
+
+            <h2>Chef's Favorites</h2>
+            <p class="section-description">
+                 Discover our most loved dishes, carefully prepared with fresh ingredients and unforgettable flavors.
+            </p>
+            <div class="meal-cards">
+
+                <div class="meal-card">
+                    <img src="images/Chef's Favorites/Classic Angus Burger.png" alt="Meal 1">
+
+                    <span class="category">BURGERS</span>
+
+                    <h3>Classic Angus Burger</h3>
+
+                    <p>Flame-grilled Angus beef, aged cheddar, crisp lettuce, fresh tomato, caramelized onions, and our signature house sauce on a toasted brioche bun.</p>
+
+                    <a href="pages/burgers.html" class="card-btn">
+                        Explore Burgers→
+                    </a>
+                </div>
+
+                <div class="meal-card">
+                      <div class="meal-info">
+                          <img src="images/Chef's Favorites/Truffle Mushroom Pizza.png" alt="Meal 2">
+                
+                         <span class="category">PIZZA</span>
+
+                         <h3>Truffle Mushroom Pizza</h3>
+
+                          <p>Wood-fired pizza topped with mozzarella, roasted mushrooms, parmesan, fresh herbs, and a drizzle of premium truffle oil.</p>
+
+                          <a href="pages/pizza.html" class="card-btn ">
+                        Explore Pizza→
+                          </a>
+                </div>
+                         </div>
+                <div class="meal-card">
+                    <img src="images/Chef's Favorites/Chocolate Lava Cake.png" alt="Meal 3">
+
+                    <span class="category">DESSERTS</span>
+
+                    <h3>Chocolate Lava Cake</h3>
+
+                    <p>Warm chocolate cake with a rich molten center, served with creamy vanilla ice cream and fresh berries.</p>
+
+                    <a href="pages/desserts.html" class="card-btn">
+                        Explore Desserts →
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <section id="why-choose-us">
+        <div class="container">
+
+            <h2>Why Choose Us</h2>
+
+            <ul>
+                <li>Fresh Ingredients</li>
+                <li>Expert Chefs</li>
+                <li>Cozy Atmosphere</li>
+                <li>Exceptional Service</li>
+            </ul>
+
+        </div>
+    </section>
+
+    <section id="about-us">
+        <div class="container">
+
+            <h2>About Us</h2>
+
+            <p>
+                Savory House is dedicated to providing the best dining experience
+                with a focus on quality ingredients and exceptional service.
+                Our chefs are passionate about creating dishes that delight the senses.
+            </p>
+
+        </div>
+    </section>
+
+    <section id="contact-us">
+        <div class="container">
+
+            <h2>Contact Us</h2>
+
+            <form action="#" method="post">
+
+                <input type="text" name="name" placeholder="Your Name" required>
+
+                <input type="email" name="email" placeholder="Your Email" required>
+
+                <textarea name="message" placeholder="Your Message" required></textarea>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+
+        </div>
+    </section>
+
+    <footer>
+
+        <div class="container">
+            <p>&copy; 2026 Savory House. All rights reserved.</p>
         </div>
 
         <nav>
             <ul>
-                <li> <a href="#home">Home</a></li>
-                <li> <a href="pages/menu.html">Menu</a></li>
-                <li> <a href="#about-us">About</a></li>
-                <li> <a href="#contact-us">Contact</a></li>
+                <li><a href="#">Instagram</a></li>
+                <li><a href="#">Twitter</a></li>
             </ul>
         </nav>
-    </div>
-</header>
 
-<section id="home" class="hero">
-    <div class="container">
-        <div class="hero-content">
-            <h2>Welcome to Savory House</h2>
-            <p>Delicious food made with love.</p>
-            <a href="#pages/menu.html" class="btn">Explore Menu</a>
-            <a href="#pages/contact.html" class="btn">Book a Table</a>
-        </div>
-    </div>
-</section>
+    </footer>
 
-<section id="featured-meals">
-    <div class="container">
-        <h2>Featured Meals</h2>
-        <div class="meal-cards">
-            <div class="meal-card">
-                <img src="images/meal1.jpg" alt="Meal 1">
-                <h3>Grilled Chicken</h3>
-                <p>Juicy grilled chicken with a side of vegetables.</p>
-            </div>
-            <div class="meal-card">
-                <img src="images/meal2.jpg" alt="Meal 2">
-                <h3>Pasta Primavera</h3>
-                <p>Fresh pasta with seasonal vegetables and a light sauce.</p>
-            </div>
-            <div class="meal-card">
-                <img src="images/meal3.jpg" alt="Meal 3">
-                <h3>Steak and Potatoes</h3>
-                <p>Perfectly cooked steak served with roasted potatoes.</p>
-            </div>
-        </div>
-    </div>
-</section>
+    <script src="js\app.js"></script>
 
-<section id="why-choose-us">
-    <div class="container">
-        <h2>Why Choose Us</h2>
-        <ul>
-            <li>Fresh Ingredients</li>
-            <li>Expert Chefs</li>
-            <li>Cozy Atmosphere</li>
-            <li>Exceptional Service</li>
-        </ul>
-    </div>
-</section>
-
-<section id="about-us">
-    <div class="container">
-        <h2>About Us</h2>
-        <p>Savory House is dedicated to providing the best dining experience with a focus on quality ingredients and exceptional service. Our chefs are passionate about creating dishes that delight the senses.</p>
-    </div>
-</section>
-
-<section id="contact-us">
-    <div class="container">
-        <h2>Contact Us</h2>
-        <form action="#" method="post">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="email" name="email" placeholder="Your Email" required>
-            <textarea name="message" placeholder="Your Message" required></textarea>
-            <button type="submit">Send Message</button>
-        </form>
-    </div>
-</section>
-
-<footer>
-    <div class="container">
-        <p>&copy; 2026 Savory House. All rights reserved.</p>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="#">Instagram</a></li>
-            <li><a href="#">Twitter</a></li>
-        </ul>
-    </nav>
-</footer>  
-
-<script src="js\app.js"></script>
 </body>
+
 </html>
