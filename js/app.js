@@ -58,70 +58,59 @@ form.addEventListener("submit", function (event) {
 }
 
 
-const contactForm = document.querySelector("#contact-form");
+
 
 /* =================================== */
 /*           SHOPPING CART LOGIC              */
 /* =================================== */
 
+const burger = {
+    name: "Classic Angus Burger",
+    price: 19.99
+};
+const pizza = {
+    name: "Margherita Pizza",
+    price: 14.99
+};
 
-function updateCartCount() {
-  
-    let cart = JSON.parse(localStorage.getItem("savory_cart")) || [];
-    
-    const cartCountElement = document.getElementById("cart-count");
- 
-    if (cartCountElement) {
-       
-        cartCountElement.textContent = cart.length; 
-    }
-}
+const dessert = {
+    name: "Chocolate Cake",
+    price: 7.99
+};
 
-updateCartCount();
+const cart = [];
+
+cart.push(burger);
+cart.push(pizza);
+cart.push(dessert);
+
+localStorage.setItem("test_cart", JSON.stringify(cart));
+const storedCart = localStorage.getItem("test_cart");
+
+console.log(storedCart);
+const cartFromStorage = JSON.parse(storedCart);
+
+console.log(cartFromStorage);           
 
 
-const addToCartButtons = document.querySelectorAll(".add-to-cart-btn");
+const cartContainer = document.querySelector("#cart-items-container");
+console.log(cartContainer);
 
-addToCartButtons.forEach(button => {
-    button.addEventListener("click", function() {
-        
-        
-        const itemName = this.getAttribute("data-name");
-        const itemPrice = parseFloat(this.getAttribute("data-price")); 
 
-        let cart = JSON.parse(localStorage.getItem("savory_cart")) || [];
-        
-        cart.push({ name: itemName, price: itemPrice });
+cartFromStorage.forEach(function(item) {
 
-    
-        localStorage.setItem("savory_cart", JSON.stringify(cart));
-
-        updateCartCount();
-      
-        const originalText = this.textContent;
-        this.textContent = "✓ Added to Order!";
-        this.classList.add("success"); 
-
-      
-        setTimeout(() => {
-            this.textContent = originalText;
-            this.classList.remove("success");
-        }, 2500);
-        
-    });
+    const itemElement = document.createElement("div");
+    itemElement.textContent = item.name +" - $"+ item.price;
+    cartContainer.appendChild(itemElement);
 });
-/* ========================================= */
-/*           CART PAGE RENDERING             */
-/* ========================================= */
+let total = 0;
 
-function renderCartPage() {
-const cartBox = document.getElementById("cart-items-container");
-if(cartBox== null){
-    return
-}
+cartFromStorage.forEach(function(item) {
+    total = total + item.price;
+});
+const totalElement = document.querySelector("#cart-total");
+if (totalElement){
 
-let cart = JSON.parse(localStorage.getItem("savory_cart")) || [];
-
-
+totalElement.textContent = "Total: $" + total;
 
 }
