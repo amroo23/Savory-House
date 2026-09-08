@@ -64,53 +64,105 @@ form.addEventListener("submit", function (event) {
 /*           SHOPPING CART LOGIC              */
 /* =================================== */
 
-const burger = {
-    name: "Classic Angus Burger",
-    price: 19.99
-};
-const pizza = {
-    name: "Margherita Pizza",
-    price: 14.99
-};
 
-const dessert = {
-    name: "Chocolate Cake",
-    price: 7.99
-};
+let cart ;
 
-const cart = [];
+const cartString = localStorage.getItem("local-cart");
 
-cart.push(burger);
-cart.push(pizza);
-cart.push(dessert);
-
-localStorage.setItem("test_cart", JSON.stringify(cart));
-const storedCart = localStorage.getItem("test_cart");
-
-console.log(storedCart);
-const cartFromStorage = JSON.parse(storedCart);
-
-console.log(cartFromStorage);           
-
+if(cartString){
+      cart = JSON.parse(cartString);
+}
+else {
+    cart = [];
+}
 
 const cartContainer = document.querySelector("#cart-items-container");
-console.log(cartContainer);
+if (cartContainer) {
 
-
-cartFromStorage.forEach(function(item) {
-
-    const itemElement = document.createElement("div");
-    itemElement.textContent = item.name +" - $"+ item.price;
-    cartContainer.appendChild(itemElement);
-});
-let total = 0;
-
-cartFromStorage.forEach(function(item) {
-    total = total + item.price;
-});
-const totalElement = document.querySelector("#cart-total");
-if (totalElement){
-
-totalElement.textContent = "Total: $" + total;
+    cart.forEach(function(item) {
+        const itemElement = document.createElement("div");
+        itemElement.textContent = item.name + " - $" + item.price;
+   
+        const removeButton = document.createElement("button");
+        removeButton.textContent = "Remove";
+      
+          removeButton.addEventListener("click", function() {
+                cart = cart.filter(function(cartItem) {
+                  return cartItem !== item;
+             });
+                localStorage.setItem("local-cart", JSON.stringify(cart));
+                itemElement.remove();
+        });
+         cartContainer.appendChild(itemElement);
+         itemElement.appendChild(removeButton);
+    });
 
 }
+
+console.log(cart);
+const buttons = document.querySelectorAll(".add-to-cart-btn");
+
+
+let total = 0;
+
+cart.forEach(function(item) {
+    total = total + item.price;
+});
+
+const totalElement = document.querySelector("#cart-total");
+
+if (totalElement) {
+    totalElement.textContent = total.toFixed(2);
+}
+
+buttons.forEach(function(button) {
+
+    button.addEventListener("click", function() {
+        const name = button.getAttribute("data-name");
+        const price = parseFloat(button.getAttribute("data-price"));
+    
+         const product = {
+             name: name,
+             price: price
+          };
+
+        console.log(product);
+
+        cart.push(product);
+
+        total = total + product.price;
+
+    if (totalElement) {
+        totalElement.textContent = total.toFixed(2);
+    }
+    
+        if (cartContainer) {
+            const itemElement = document.createElement("div");
+
+          itemElement.textContent = product.name + " - $" + product.price;
+
+          cartContainer.appendChild(itemElement);
+        }
+        
+
+        localStorage.setItem("local-cart" , JSON.stringify(cart));
+
+    });
+        
+});
+
+
+cart = [
+    { name: "Burger", price: 19.99 },
+    { name: "Pizza", price: 14.99 },
+    { name: "Cake", price: 7.99 }
+];
+
+
+
+const newarr = cart.filter (function(item) {
+    return item.name !== "Pizza";
+});
+
+console.log(newarr);
+
