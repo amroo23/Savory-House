@@ -20,7 +20,7 @@
                 <h1>Savory House</h1>
             </div>
             </a>
-            <nav>
+            <nav aria-label="Main navigation">
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="pages/menu.html">Menu</a></li>
@@ -59,7 +59,7 @@
         </div>
     </section>
 
-    <section id="Chef's Favorites">
+    <section id="chefs-favorites">
         <div class="container">
                 <div class="section-header">
                   
@@ -74,7 +74,7 @@
             <div class="meal-cards">
 
                 <div class="meal-card from-top">
-                    <img src="images/Chef's Favorites/Classic Angus Burger.jpg" alt="Meal 1">
+                    <img src="images/Chef's Favorites/Classic Angus Burger.jpg" alt="Classic Angus Burger">
 
                     <span class="category">BURGERS</span>
 
@@ -89,7 +89,7 @@
 
                 <div class="meal-card from-bottom">
                       <div class="meal-info">
-                          <img src="images/Chef's Favorites/Truffle Mushroom Pizza.jpg" alt="Meal 2">
+                          <img src="images/Chef's Favorites/Truffle Mushroom Pizza.jpg" alt="Truffle Mushroom Pizza">
                 
                          <span class="category">PIZZA</span>
 
@@ -103,7 +103,7 @@
                 </div>
                          </div>
                 <div class="meal-card from-top">
-                    <img src="images/Chef's Favorites/Chocolate Lava Cake.jpg" alt="Meal 3">
+                    <img src="images/Chef's Favorites/Chocolate Lava Cake.jpg" alt="Chocolate Lava Cake">
 
                     <span class="category">DESSERTS</span>
 
@@ -195,18 +195,23 @@
 
             <form class="contact-form">
 
-                <input type="text" placeholder="Your Name" >
+                <label for="contact-name">Your name</label>
+                <input id="contact-name" name="name" type="text" autocomplete="name" placeholder="Your Name" required>
 
-                <input type="email" placeholder="Your Email">
+                <label for="contact-email">Your email</label>
+                <input id="contact-email" name="email" type="email" autocomplete="email" placeholder="Your Email" required>
 
-                <input type="text" placeholder="Phone Number">
+                <label for="contact-phone">Phone number</label>
+                <input id="contact-phone" name="phone" type="tel" autocomplete="tel" placeholder="Phone Number" required>
 
-                <textarea placeholder="Your Message"></textarea>
+                <label for="contact-message">Your message</label>
+                <textarea id="contact-message" name="message" placeholder="Your Message" rows="4" required></textarea>
+                <p class="demo-note">Practice form only. Messages and reservations are not sent.</p>
 
                 <button class="btn btn-primary">
                     Send Message
                 </button>
-                <p id="form-message"></p>
+                <p id="form-message" role="status"></p>
 
             </form>
 
@@ -226,8 +231,7 @@
                 Where exceptional flavors meet warm hospitality.
                   We create unforgettable dining experiences through
                  fresh ingredients, handcrafted dishes, and a passion
-                 for quality. djsddasd dsjds sdfdd dsdiajs ddks dfdsjkd dkdx 
-                 dshsdx sdjhsdx sdus djsss djs sdddj sdjdsjd sd
+                 for quality.
             </p>
         </div>
 
@@ -246,8 +250,8 @@
       <div class="footer-social">
     <h3>Follow Us</h3>
 
-    <a href="#">Instagram</a>
-    <a href="#">Facebook</a>
+    <span>Instagram — coming soon</span>
+    <span>Facebook — coming soon</span>
 
 </div>
 
@@ -262,7 +266,7 @@
 
 </footer>
 
-    <script src="js\app.js"></script>
+    <script src="js/app.js"></script>
 
 
 

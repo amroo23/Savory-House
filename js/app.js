@@ -34,7 +34,7 @@ form.addEventListener("submit", function (event) {
 
     inputs.forEach(function (input) {
         if (input.value.trim() === "") {
-            empty = true;                1212
+            empty = true;
         }
     });
 
@@ -44,7 +44,7 @@ form.addEventListener("submit", function (event) {
         message.classList.add("error", "show");
 
     } else {
-        message.textContent = "✓ Your reservation has been sent successfully!";
+        message.textContent = "Demo complete! Your details are valid. No reservation has been sent.";
         message.classList.remove("error");
         message.classList.add("success", "show");
 
@@ -79,7 +79,6 @@ else {
 }
 
 function updateCartCount() {
-  const cartCount = document.querySelector("#cart-count");
 
     if (cartCount) {
         let totalQuantity = 0;
@@ -108,12 +107,21 @@ updateTotalPrice();
 
 
 const cartContainer = document.querySelector("#cart-items-container");
+
+// Reuse this after either button removes the last product.
+function showEmptyCart() {
+    if (cartContainer && cart.length === 0) {
+        const emptyMessage = document.createElement("p");
+        emptyMessage.classList.add("empty-cart");
+        emptyMessage.textContent = "Your cart is empty. Explore the menu to add something delicious.";
+        cartContainer.appendChild(emptyMessage);
+    }
+}
+
 if (cartContainer) {
 
         if (cart.length === 0) {
-            const emptyMessage = document.createElement("p");
-            emptyMessage.textContent = "Your cart is empty.";
-            cartContainer.appendChild(emptyMessage);
+            showEmptyCart();
         }
     else {
      
@@ -130,6 +138,7 @@ if (cartContainer) {
 
             const itemImage = document.createElement("img");
             itemImage.src = item.image;
+            itemImage.alt = item.name;
             itemImage.classList.add("cart-item-image");
             imageContainer.appendChild(itemImage);
 
@@ -146,6 +155,7 @@ if (cartContainer) {
 
             const minusButton = document.createElement("button");
             minusButton.textContent = "-";
+            minusButton.setAttribute("aria-label", "Decrease quantity of " + item.name);
             minusButton.classList.add("quantity-minus");
 
             const quantityNumber = document.createElement("span");
@@ -154,6 +164,7 @@ if (cartContainer) {
 
             const plusButton = document.createElement("button");
             plusButton.textContent = "+";
+            plusButton.setAttribute("aria-label", "Increase quantity of " + item.name);
             plusButton.classList.add("quantity-plus");
 
             plusButton.addEventListener("click", function() {
@@ -174,7 +185,6 @@ if (cartContainer) {
                 if (item.quantity > 1) {
                     item.quantity -= 1;
                     quantityNumber.textContent = item.quantity;
-                    itemPrice.textContent = "$" + (item.price * item.quantity).toFixed(2);
 
                     localStorage.setItem("local-cart", JSON.stringify(cart));
                     updateCartCount();
@@ -183,6 +193,7 @@ if (cartContainer) {
                 else {
                     removeItem();
                     itemElement.remove();
+                    showEmptyCart();
 
                     localStorage.setItem("local-cart", JSON.stringify(cart));
                 
@@ -201,9 +212,11 @@ if (cartContainer) {
        
         
             const itemDescription = document.createElement("p");
+            itemDescription.classList.add("cart-item-description");
             itemDescription.textContent = item.description;
 
             const itemAllergens = document.createElement("p");
+            itemAllergens.classList.add("cart-item-allergens");
             itemAllergens.textContent = item.allergens;
 
 
@@ -237,6 +250,7 @@ if (cartContainer) {
           const removeButton = document.createElement("button");
          removeButton.classList.add("remove-btn");
          removeButton.textContent = "Remove";
+         removeButton.setAttribute("aria-label", "Remove " + item.name + " from cart");
 
             actionsContainer.appendChild(removeButton);
 
@@ -257,11 +271,7 @@ removeButton.addEventListener("click", function() {
     updateCartCount();
     updateTotalPrice();
 
-    if (cart.length === 0) {
-        const emptyMessage = document.createElement("p");
-        emptyMessage.textContent = "Your cart is empty.";
-        cartContainer.appendChild(emptyMessage);
-    }
+    showEmptyCart();
 });
 itemElement.appendChild(actionsContainer);
 cartContainer.appendChild(itemElement);
@@ -319,15 +329,17 @@ buttons.forEach(function(button) {
 
     updateCartCount();
     updateTotalPrice();
-    console.log(product);
 
-   let message = button.parentElement.querySelector(".cart-message");
+   // Each click gets its own message, so an older timer cannot hide a new one.
+   const oldMessage = button.parentElement.querySelector(".cart-message");
+   if (oldMessage) {
+       oldMessage.remove();
+   }
+   let message = document.createElement("p");
 
-    if (!message) {
-         message = document.createElement("p");
         message.classList.add("cart-message");
+        message.setAttribute("role", "status");
         button.after(message);
-    }
 
     message.textContent = product.name + " added to cart!";
   setTimeout(function() {
@@ -343,14 +355,6 @@ buttons.forEach(function(button) {
 
 
     
-        if (cartContainer) {
-            const itemElement = document.createElement("div");
-            itemElement.classList.add("cart-item");
-
-          itemElement.textContent = product.name + " - $" + product.price;
-
-          cartContainer.appendChild(itemElement);
-        }
         
 
         localStorage.setItem("local-cart" , JSON.stringify(cart));
