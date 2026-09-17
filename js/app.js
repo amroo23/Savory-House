@@ -34,7 +34,7 @@ form.addEventListener("submit", function (event) {
 
     inputs.forEach(function (input) {
         if (input.value.trim() === "") {
-            empty = true;
+            empty = true;                1212
         }
     });
 
@@ -68,6 +68,9 @@ let cart ;
 
 const cartString = localStorage.getItem("local-cart");
 
+const totalElement = document.querySelector("#cart-total");
+const cartCount = document.querySelector("#cart-count");
+
 if(cartString){
       cart = JSON.parse(cartString);
 }
@@ -77,92 +80,199 @@ else {
 
 function updateCartCount() {
   const cartCount = document.querySelector("#cart-count");
-  if (cartCount) {
-    cartCount.textContent = cart.length;
-  }
+
+    if (cartCount) {
+        let totalQuantity = 0;
+        cart.forEach(function(item) {
+         totalQuantity += item.quantity;
+         });
+
+        cartCount.textContent = totalQuantity;
+    }
   
 }
+
+function updateTotalPrice() {
+    let total = 0;
+
+    cart.forEach(function(cartItem) {
+        total = total + (cartItem.price * cartItem.quantity);
+    });
+
+    if (totalElement) {
+        totalElement.textContent = total.toFixed(2);
+    }
+}
+
+updateTotalPrice();
+
 
 const cartContainer = document.querySelector("#cart-items-container");
 if (cartContainer) {
 
-          if (cart.length === 0) {
+        if (cart.length === 0) {
+            const emptyMessage = document.createElement("p");
+            emptyMessage.textContent = "Your cart is empty.";
+            cartContainer.appendChild(emptyMessage);
+        }
+    else {
+     
+            cart.forEach(function(item) {
+            const itemElement = document.createElement("div");
+            itemElement.classList.add("cart-item");
+        
+            const itemInfo = document.createElement("div");
+            itemInfo.classList.add("cart-item-info");
+
+            const imageContainer = document.createElement("div");
+            imageContainer.classList.add("cart-item-image-container");
+      
+
+            const itemImage = document.createElement("img");
+            itemImage.src = item.image;
+            itemImage.classList.add("cart-item-image");
+            imageContainer.appendChild(itemImage);
+
+        
+            const itemName = document.createElement("h3");
+            itemName.textContent = item.name;
+
+
+            const actionsContainer = document.createElement("div");
+            actionsContainer.classList.add("cart-item-actions"); 
+
+            const quantityContainer = document.createElement("div");
+            quantityContainer.classList.add("quantity-container");
+
+            const minusButton = document.createElement("button");
+            minusButton.textContent = "-";
+            minusButton.classList.add("quantity-minus");
+
+            const quantityNumber = document.createElement("span");
+            quantityNumber.textContent = item.quantity;
+            quantityNumber.classList.add("quantity-number");
+
+            const plusButton = document.createElement("button");
+            plusButton.textContent = "+";
+            plusButton.classList.add("quantity-plus");
+
+            plusButton.addEventListener("click", function() {
+                item.quantity += 1;
+
+                quantityNumber.textContent = item.quantity;
+                
+
+                localStorage.setItem("local-cart", JSON.stringify(cart));
+                updateCartCount();
+                updateTotalPrice();
+            });
+
+                const itemPrice = document.createElement("p");
+                itemPrice.classList.add("cart-item-price");
+                itemPrice.textContent = "$" + (item.price).toFixed(2);
+            minusButton.addEventListener("click", function() {
+                if (item.quantity > 1) {
+                    item.quantity -= 1;
+                    quantityNumber.textContent = item.quantity;
+                    itemPrice.textContent = "$" + (item.price * item.quantity).toFixed(2);
+
+                    localStorage.setItem("local-cart", JSON.stringify(cart));
+                    updateCartCount();
+                    updateTotalPrice();
+                }
+                else {
+                    removeItem();
+                    itemElement.remove();
+
+                    localStorage.setItem("local-cart", JSON.stringify(cart));
+                
+                    updateCartCount();
+                    updateTotalPrice();
+                }
+            });
+           
+                
+                
+            quantityContainer.appendChild(minusButton);
+            quantityContainer.appendChild(quantityNumber);
+            quantityContainer.appendChild(plusButton);
+            
+
+       
+        
+            const itemDescription = document.createElement("p");
+            itemDescription.textContent = item.description;
+
+            const itemAllergens = document.createElement("p");
+            itemAllergens.textContent = item.allergens;
+
+
+
+            itemInfo.appendChild(itemName);
+            itemInfo.appendChild(itemPrice);
+            itemInfo.appendChild(itemDescription);
+            itemInfo.appendChild(itemAllergens);
+         
+
+            const nutritionContainer = document.createElement("div");
+            nutritionContainer.classList.add("cart-item-nutrition");
+            item.nutrition.forEach(function(nutritionItem) {
+                const nutritionElement = document.createElement("p");
+
+                const nutritionValue = document.createElement("span");
+                nutritionValue.textContent = nutritionItem.value;
+
+                const nutritionLabel = document.createElement("small");
+                nutritionLabel.textContent = nutritionItem.label;
+                nutritionContainer.appendChild(nutritionElement);
+                    nutritionElement.appendChild(nutritionValue);
+                    nutritionElement.appendChild(nutritionLabel);
+            }); 
+       
+         itemInfo.appendChild(nutritionContainer);
+         itemElement.appendChild(imageContainer);
+         itemElement.appendChild(itemInfo);
+         actionsContainer.appendChild(quantityContainer);
+   
+          const removeButton = document.createElement("button");
+         removeButton.classList.add("remove-btn");
+         removeButton.textContent = "Remove";
+
+            actionsContainer.appendChild(removeButton);
+
+            function removeItem() {
+                cart = cart.filter(function(cartItem) {
+                  return cartItem !== item;
+                });
+            }
+                    
+removeButton.addEventListener("click", function() {
+
+    removeItem();
+
+    localStorage.setItem("local-cart", JSON.stringify(cart));
+
+    itemElement.remove();
+
+    updateCartCount();
+    updateTotalPrice();
+
+    if (cart.length === 0) {
         const emptyMessage = document.createElement("p");
         emptyMessage.textContent = "Your cart is empty.";
         cartContainer.appendChild(emptyMessage);
     }
-    else {
-     
-            cart.forEach(function(item) {
-        const itemElement = document.createElement("div");
-        itemElement.classList.add("cart-item");
-        
-        itemElement.textContent = item.name + " - $" + item.price;
-        
-        const itemImage = document.createElement("img");
-        itemImage.src = item.image;
-        itemImage.classList.add("cart-item-image");
-       
-   
-        const removeButton = document.createElement("button");
-        removeButton.classList.add("remove-btn");
-        removeButton.textContent = "Remove";
-      
-          removeButton.addEventListener("click", function() {
-                cart = cart.filter(function(cartItem) {
-
-
-
-                  return cartItem !== item;
-                  
-                    
-             });
-             updateCartCount();
-            if (cart.length === 0) {
-                 const emptyMessage = document.createElement("p");
-                 emptyMessage.textContent = "Your cart is empty.";
-                 cartContainer.appendChild(emptyMessage);
-            }
-
-                total = 0;
-                cart.forEach(function(cartItem) {
-                     total = total + cartItem.price;
-                });
-                    if (totalElement) {
-        totalElement.textContent = total.toFixed(2);
-    }
-
-
-                localStorage.setItem("local-cart", JSON.stringify(cart));
-                itemElement.remove();
+});
+itemElement.appendChild(actionsContainer);
+cartContainer.appendChild(itemElement);
         });
-         cartContainer.appendChild(itemElement);
-         itemElement.appendChild(removeButton);
-          itemElement.appendChild(itemImage);
-    });
-
-}
- 
     }
+}
 
 
-console.log(cart);
 const buttons = document.querySelectorAll(".add-to-cart-btn");
 
 
-let total = 0;
-
-cart.forEach(function(item) {
-    total = total + item.price;
-});
-
-const totalElement = document.querySelector("#cart-total");
-const cartCount = document.querySelector("#cart-count");
-
-
-if (totalElement) {
-    totalElement.textContent = total.toFixed(2);
-}
 
 buttons.forEach(function(button) {
 
@@ -188,17 +298,27 @@ buttons.forEach(function(button) {
         });
     });
 
-
     const product = {
          name: name,
          price: price,
+         quantity: 1,
          description: description,
          allergens: allergens,
          nutrition: nutrition,
          image: imageSrc
     };
-    cart.push(product);
+    const existingProduct = cart.find(function(cartItem) {
+    return cartItem.name === product.name;
+});
+    if (existingProduct) {
+        existingProduct.quantity += 1;
+    }
+    else {
+        cart.push(product);
+    }
+
     updateCartCount();
+    updateTotalPrice();
     console.log(product);
 
    let message = button.parentElement.querySelector(".cart-message");
@@ -219,11 +339,9 @@ buttons.forEach(function(button) {
 
 }, 2000);
 
-    total = total + product.price;
+    
 
-    if (totalElement) {
-        totalElement.textContent = total.toFixed(2);
-    }
+
     
         if (cartContainer) {
             const itemElement = document.createElement("div");
