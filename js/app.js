@@ -108,7 +108,6 @@ updateTotalPrice();
 
 const cartContainer = document.querySelector("#cart-items-container");
 
-// Reuse this after either button removes the last product.
 function showEmptyCart() {
     if (cartContainer && cart.length === 0) {
         const emptyMessage = document.createElement("p");
